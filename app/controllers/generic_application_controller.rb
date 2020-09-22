@@ -26,17 +26,17 @@ class GenericApplicationController < ActionController::Base
 	filter_parameter_logging :password
 	before_filter :authenticate_user!, :except => ['login', 'logout','remote_demographics',
     'create_remote', 'mastercard_printable', 'get_token',
-    'disease_surveillance_api']
+    'disease_surveillance_api', "ocr_demographics", "check_ocr_data"]
 
   before_filter :set_current_user, :except => ['login', 'logout','remote_demographics',
     'create_remote', 'mastercard_printable', 'get_token',
-    'disease_surveillance_api']
+    'disease_surveillance_api', "ocr_demographics",  "check_ocr_data"]
 
 	before_filter :location_required, :except => ['login', 'logout', 'location',
     'demographics','create_remote',
     'mastercard_printable',
     'remote_demographics', 'get_token', 'single_sign_in',
-    'disease_surveillance_api']
+    'disease_surveillance_api',"ocr_demographics", "check_ocr_data"]
 =begin
   before_filter :set_auto_session, :except => ['login', 'logout','remote_demographics',
     'create_remote', 'mastercard_printable', 'get_token', 'set_datetime', 'reset_datetime',

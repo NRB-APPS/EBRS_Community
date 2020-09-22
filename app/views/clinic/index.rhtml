@@ -35,6 +35,41 @@
         document.getElementById("popupBox").style.display = "block";
         document.getElementById("popupBox").style.width = "400px";
       }
+
+		function checkForOCRData(){
+
+				var xmlhttp = new XMLHttpRequest();
+
+				xmlhttp.onreadystatechange = function() {
+				    if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
+				       if (xmlhttp.status == 200) {
+				          var result = JSON.parse(xmlhttp.responseText);
+									console.log(result)
+									if (result != false){
+										var ocr_uri = "/people/ocr_confirmation?first_name=" + result['first_name'];
+										ocr_uri += "&middle_name=" + result['middle_name']; 
+										ocr_uri += "&last_name=" + result['last_name']; 
+										ocr_uri += "&gender=" + result['gender']; 
+										ocr_uri += "&dob=" + result['dob']; 
+										ocr_uri += "&address=" + result['address']; 
+										ocr_uri += "&npid=" + result['npid']; 
+										window.location = ocr_uri
+									}
+										
+				       }else {
+				          console.log('Something went wrong with OCR!');
+				       }
+				    }
+				};
+
+				xmlhttp.open("GET", "api/check_for_ocr_data", true);
+				xmlhttp.send();
+
+				window.setTimeout("checkForOCRData()", 1000);
+		}
+
+		window.setTimeout("checkForOCRData()", 1000);
+
     </script>
   </head>
   <body><div id='content'>

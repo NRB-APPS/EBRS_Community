@@ -1,0 +1,109 @@
+<html>
+	<head>
+		<title>Patient Registration OCR Comfirmation page</title>
+		
+		<meta http-equiv='content-type' content='text/html;charset=UTF-8' />
+		<%= javascript_include_tag "jquery" %>
+
+		<script>
+
+ 		var tt_cancel_distination = "/clinic"
+
+		function changeAttributes(){
+			var parent = document.getElementById("page" + tstCurrentPage).parentNode;
+			document.getElementById("page" + tstCurrentPage).style.display = "none";
+			document.getElementById("nextButton").innerHTML = "<span>Continue</span>";
+			document.getElementById("nextButton").onmousedown = function(){
+				__$("scan-data-form").submit();
+			}
+			
+      buildPage(parent);
+		}	
+
+		function buildPage(parent){
+
+			var table = document.getElementById("confirmationTable");
+			parent.appendChild(table);
+		}
+		
+		function reSize(){
+		}
+
+		</script>
+
+		<style>
+
+			#inputFrame0, #clearButton{
+				display: none;
+			}
+	
+			#confirmationTable{
+				width: 90%;
+				font-size: 1.8em;
+				margin: auto;
+				margin-top: 1.5%;
+				color: darkslategrey;		
+				border-top: 1px solid lightgray;	
+			}
+
+			#confirmationTable td{
+				padding: 15px;
+				width: 50%;
+				border: 1px dotted lightgrey;
+			}
+
+			#confirmationTable .label{
+				font-weight: bold;
+			}
+		</style>
+	</head>
+	<body onload = "setTimeout('changeAttributes()',200);">
+		
+		<form id='scan-data-form' action='missing_address'>
+						
+			<input name='identifier' value ="<%=params[:identifier]%>"  tt_pageStyleClass='NoKeyboard' />
+			<input type='submit' value='Finish' />
+		</form>
+
+		<table id='confirmationTable'>
+			<caption style="margin-bottom: 15px;font-weight: bold;"> OCR Data Confirmation</caption>
+			<tr>
+			 <td class='label'>Patient Identifier</td>	
+			 <td class='value'><%= @ocr_data['npid']%></td>		
+			</tr>
+
+			<tr>
+			 <td class='label'>First Name</td>	
+			 <td class='value'><%= @ocr_data['first_name']%></td>		
+			</tr>
+
+			<tr>
+			 <td class='label'>Middle Name(s)</td>	
+			 <td class='value'><%= @ocr_data['middle_name']%></td>		
+			</tr>
+
+			<tr>
+			 <td class='label'>Surname</td>	
+			 <td class='value'><%= @ocr_data['last_name']%></td>		
+			</tr>			
+			
+			<tr>
+			 <td class='label'>Birthdate</td>	
+			 <td class='value'><%= @ocr_data['dob']%></td>		
+			</tr>
+
+			<tr>
+			 <td class='label'>Gender</td>	
+			 <td class='value'><%= {"M" => "Male", "F" => "Female" }[@ocr_data['gender']]%></td>		
+			</tr>
+
+			<tr>
+			 <td class='label'>Current Address</td>	
+			 <td class='value'><%= @ocr_data['address']%></td>		
+			</tr>
+		</table>
+
+
+	</body>
+</html>
+

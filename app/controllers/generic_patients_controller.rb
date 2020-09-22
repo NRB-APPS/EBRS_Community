@@ -1,4 +1,4 @@
-require 'underlined_diseases_alerts'
+#require 'underlined_diseases_alerts'
 
 class GenericPatientsController < ApplicationController
 	before_filter :find_patient, :except => [:void]

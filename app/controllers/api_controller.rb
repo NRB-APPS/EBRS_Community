@@ -52,4 +52,34 @@ class ApiController < GenericApplicationController
 
     render :text => results.to_json
   end
+
+	def ocr_demographics
+
+		remote_data = ["P19292929292", "TestFirstName", "TestMiddleName", "Kapundi", "12/Jan/2001", "M", "Area 23"]
+		data = {
+			"npid" => remote_data[0],
+			"first_name" => remote_data[1],
+			"middle_name" => remote_data[2],
+			"last_name"  => remote_data[3],
+			"dob"		 => remote_data[4],
+			"gender"	=> remote_data[5],
+			"address"	=>	remote_data[6]
+		}
+
+		File.open("public/ocr_data.json", "w"){|f| f.write(data.to_json)}
+		render :layout => false, :text => true
+	end
+
+	def check_for_ocr_data
+			
+		if File.exists?("public/ocr_data.json")
+			data = File.read("public/ocr_data.json")
+			File.delete("public/ocr_data.json")
+
+			render :layout => false, :text => data and return
+		else
+			render :layout => false, :text => false and return
+		end			
+	end
+
 end

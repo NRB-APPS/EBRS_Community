@@ -1062,6 +1062,19 @@ class GenericPeopleController < ApplicationController
     print_and_redirect("/patients/national_id_label?patient_id=#{person.id}", next_task(person.patient))
   end
 
+	def ocr_confirmation
+
+		@ocr_data = {
+			"npid"  => params[:npid],
+			"last_name" => params[:last_name],
+			"first_name"  => params[:first_name],
+			"middle_name" => params[:middle_name],
+			"gender" 	  => params[:gender],
+			"dob"		  => params[:dob]	,
+			"address"	=> params[:address]			
+		}
+	end
+
   
   protected
   
