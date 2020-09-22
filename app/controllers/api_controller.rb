@@ -66,15 +66,15 @@ class ApiController < GenericApplicationController
 			"address"	=>	remote_data[6]
 		}
 
-		File.open("public/ocr_data.json", "w"){|f| f.write(data.to_json)}
+		File.open("tmp/ocr_data.json", "w"){|f| f.write(data.to_json)}
 		render :layout => false, :text => true
 	end
 
 	def check_for_ocr_data
 			
-		if File.exists?("public/ocr_data.json")
-			data = File.read("public/ocr_data.json")
-			File.delete("public/ocr_data.json")
+		if File.exists?("tmp/ocr_data.json")
+			data = File.read("tmp/ocr_data.json")
+			File.delete("tmp/ocr_data.json")
 
 			render :layout => false, :text => data and return
 		else
