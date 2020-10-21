@@ -55,15 +55,14 @@ class ApiController < GenericApplicationController
 
 	def ocr_demographics
 
-		remote_data = ["P19292929292", "TestFirstName", "TestMiddleName", "Kapundi", "12/Jan/2001", "M", "Area 23"]
 		data = {
-			"npid" => remote_data[0],
-			"first_name" => remote_data[1],
-			"middle_name" => remote_data[2],
-			"last_name"  => remote_data[3],
-			"dob"		 => remote_data[4],
-			"gender"	=> remote_data[5],
-			"address"	=>	remote_data[6]
+			"npid" => params['npid'],
+			"first_name" => params['first_name'],
+			"middle_name" => params['middle_name'],
+			"last_name"  => params['last_name'],
+			"dob"		 => params['dob'],
+			"gender"	=> params['gender'],
+			"address"	=>	params['address']
 		}
 
 		File.open("tmp/ocr_data.json", "w"){|f| f.write(data.to_json)}
